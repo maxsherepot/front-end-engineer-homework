@@ -1,0 +1,25 @@
+.pagination {
+  list-style: none;
+  cursor: pointer;
+}
+
+.pagination a {
+  padding: 10px;
+  border-radius: 0.375rem;
+  border: 1px solid #c8cacc;
+  color: #333;
+}
+
+.pagination a:hover {
+  color: #0b6efd;
+}
+
+.pagination-link-active a {
+  color: #fff !important;
+  background: #0b6efd;
+}
+
+.pagination-link-disabled a {
+  color: #c8cacc;
+  border: 1px solid #c8cacc;
+}
