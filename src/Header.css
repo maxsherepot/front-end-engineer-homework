@@ -1,11 +1,12 @@
-.component-header {
-  font-weight: normal;
+.component-header h1 {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 32px;
   color: #333;
 }
 
 .component-header img {
+  width: 32px;
+  height: 32px;
   padding: 0 14px;
   box-sizing: content-box;
 }

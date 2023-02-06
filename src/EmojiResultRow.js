@@ -13,12 +13,16 @@ export default class EmojiResultsRow extends PureComponent {
     const src = `//cdn.jsdelivr.net/emojione/assets/png/${codePointHex}.png`;
     return (
       <div
-        className="component-emoji-result-row copy-to-clipboard"
+        className="card d-flex flex-row align-items-center justify-content-between component-emoji-result-row copy-to-clipboard"
         data-clipboard-text={this.props.symbol}
       >
-        <img alt={this.props.title} src={src} />
-        <span className="title">{this.props.title}</span>
-        <span className="info">Click to copy emoji</span>
+        <div className="d-flex align-items-center">
+          <img src={src} className="mx-2" alt={this.props.title} />
+          <h6 className="my-3">{this.props.title}</h6>
+        </div>
+        <p className="card-text mx-2">
+          <small className="text-muted info">Click to copy emoji</small>
+        </p>
       </div>
     );
   }

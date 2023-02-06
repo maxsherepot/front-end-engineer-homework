@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
-import "./SearchInput.css";
 
 export default class SearchInput extends PureComponent {
   static propTypes = {
@@ -14,10 +13,12 @@ export default class SearchInput extends PureComponent {
 
   render() {
     return (
-      <div className="component-search-input">
-        <div>
-          <input onChange={this.handleChange} />
-        </div>
+      <div className="input-group input-group-lg p-2 pt-0">
+        <input
+          type="text"
+          className="form-control"
+          onChange={this.handleChange}
+        />
       </div>
     );
   }

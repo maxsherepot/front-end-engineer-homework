@@ -4,18 +4,14 @@ import "./Header.css";
 export default class Header extends PureComponent {
   render() {
     return (
-      <header className="component-header p-2 d-flex justify-content-center align-items-center">
+      <header className="component-header p-3 d-flex justify-content-center align-items-center">
         <img
           src="//cdn.jsdelivr.net/emojione/assets/png/1f638.png"
-          width="32"
-          height="32"
           alt=""
         />
-        Emoji Search
+        <h1 className="mb-0 fw-normal">Emoji Search</h1>
         <img
           src="//cdn.jsdelivr.net/emojione/assets/png/1f63a.png"
-          width="32"
-          height="32"
           alt=""
         />
       </header>
