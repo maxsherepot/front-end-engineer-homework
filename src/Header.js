@@ -4,7 +4,7 @@ import "./Header.css";
 export default class Header extends PureComponent {
   render() {
     return (
-      <header className="component-header">
+      <header className="component-header p-2 d-flex justify-content-center align-items-center">
         <img
           src="//cdn.jsdelivr.net/emojione/assets/png/1f638.png"
           width="32"
