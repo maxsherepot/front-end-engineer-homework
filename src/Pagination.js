@@ -20,7 +20,7 @@ export default class Pagination extends PureComponent {
         nextLabel={"Next"}
         pageCount={this.props.pageCount}
         onPageChange={this.handlePageChange}
-        containerClassName={"pagination justify-content-center mt-4"}
+        containerClassName={"pagination justify-content-center m-0"}
         previousLinkClassName={"pagination-link"}
         nextLinkClassName={"pagination-link"}
         disabledClassName={"pagination-link-disabled"}

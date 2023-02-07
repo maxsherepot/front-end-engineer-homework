@@ -1,7 +1,5 @@
-import emojiList from "./emojiList.json";
-
-export default function filterEmoji(searchText, maxResults) {
-  return emojiList
+export default function filterEmoji(arr, searchText, maxResults) {
+  return arr
     .filter(emoji => {
       if (emoji.title.toLowerCase().includes(searchText.toLowerCase())) {
         return true;
