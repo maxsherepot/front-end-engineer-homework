@@ -25,6 +25,17 @@ export default class App extends PureComponent {
     });
   };
 
+  onEditItem = (newItem, currentItem) => {
+    this.setState(({ listItems }) => {
+      const newArray = [
+        ...listItems.slice(0, currentItem),
+        newItem,
+        ...listItems.slice(currentItem + 1)
+      ];
+      return { listItems: newArray };
+    });
+  };
+
   render() {
     const { listItems, searchValue } = this.state;
     const visibleItems = filterEmoji(listItems, searchValue, 20);
@@ -32,7 +43,12 @@ export default class App extends PureComponent {
       <div>
         <Header />
         <SearchInput textChange={this.handleSearchChange} />
-        <EmojiResults emojiData={visibleItems} onAddItem={this.onAddItem} />
+        <EmojiResults
+          emojiData={visibleItems}
+          onAddItem={this.onAddItem}
+          onEditItem={this.onEditItem}
+          listItems={this.state.listItems}
+        />
       </div>
     );
   }

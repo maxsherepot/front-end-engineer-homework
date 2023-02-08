@@ -19,3 +19,11 @@
 .component-emoji-result-row:hover .info {
   display: block;
 } 
+
+.component-emoji-result-row i {
+  font-size: 20px;
+} 
+
+.fa-cog:hover {
+  color: #0b6efd;
+}

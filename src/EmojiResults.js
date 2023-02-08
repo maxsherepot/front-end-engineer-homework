@@ -12,7 +12,9 @@ export default class EmojiResults extends PureComponent {
     super(props);
     this.state = {
       currentPage: 0,
+      currentItem: null,
       isOpenModal: false,
+      modalType: null,
       title: "",
       symbol: "",
       keywords: ""
@@ -21,7 +23,9 @@ export default class EmojiResults extends PureComponent {
 
   static propTypes = {
     emojiData: PropTypes.array,
-    onAddItem: PropTypes.func
+    onAddItem: PropTypes.func,
+    onEditItem: PropTypes.func,
+    listItems: PropTypes.array
   };
 
   componentDidMount() {
@@ -38,8 +42,14 @@ export default class EmojiResults extends PureComponent {
     });
   };
 
-  onSubmit = event => {
-    event.preventDefault();
+  onOpenAddModal = () => {
+    this.setState({
+      isOpenModal: true,
+      modalType: "create",
+    });
+  };
+
+  onAddEmoji = () => {
     const emojiValue = {
       title: this.state.title,
       symbol: this.state.symbol,
@@ -52,6 +62,47 @@ export default class EmojiResults extends PureComponent {
       symbol: "",
       keywords: ""
     });
+  };
+
+  onOpenEditModal = emojiData => {
+    const currentItem = this.props.listItems.findIndex(
+      item => item.title === emojiData.title && item.symbol === emojiData.symbol && item.keywords === emojiData.keywords
+    );
+    this.setState({
+      isOpenModal: true,
+      modalType: "edit",
+      currentItem: currentItem,
+      title: emojiData.title,
+      symbol: emojiData.symbol,
+      keywords: emojiData.keywords
+    });
+  };
+
+  onEditEmoji = () => {
+    const newItem = {
+      title: this.state.title,
+      symbol: this.state.symbol,
+      keywords: this.state.keywords
+    };
+    this.props.onEditItem(newItem, this.state.currentItem);
+    this.setState({
+      isOpenModal: false,
+      title: "",
+      symbol: "",
+      keywords: ""
+    });
+  };
+
+  onSubmit = event => {
+    event.preventDefault();
+    switch (this.state.modalType) {
+      case "create":
+        return this.onAddEmoji();
+      case "edit":
+        return this.onEditEmoji();
+      default:
+        break;
+    };
   };
 
   render() {
@@ -107,19 +158,22 @@ export default class EmojiResults extends PureComponent {
         {currentPageData.map(emojiData => (
           <EmojiResultRow
             key={emojiData.title}
+            onEditItem={() => this.onOpenEditModal(emojiData)}
             symbol={emojiData.symbol}
             title={emojiData.title}
           />
         ))}
-        <div className="d-flex justify-content-start align-items-center mt-2">
-          <button type="button" className="m-3 btn btn-primary" onClick={() => this.setState({ isOpenModal: true })}>
+        <div className="d-flex justify-content-start align-items-center m-2">
+          <button type="button" className="m-1 btn btn-primary" onClick={this.onOpenAddModal}>
             Add emoji
           </button>
           {this.props.emojiData.length > itemsPerPage &&
-            <Pagination
-              pageCount={pageCount}
-              onPageChange={this.handlePageChange}
-            />
+            <div className="mx-3">
+              <Pagination
+                pageCount={pageCount}
+                onPageChange={this.handlePageChange}
+              />
+            </div>
           }
         </div>
       </div>

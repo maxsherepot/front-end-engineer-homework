@@ -5,7 +5,8 @@ import "./EmojiResultRow.css";
 export default class EmojiResultsRow extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
-    symbol: PropTypes.string
+    symbol: PropTypes.string,
+    onEditItem: PropTypes.func
   };
 
   render() {
@@ -20,9 +21,10 @@ export default class EmojiResultsRow extends PureComponent {
           <img src={src} className="mx-2" alt={this.props.title} />
           <h6 className="my-3">{this.props.title}</h6>
         </div>
-        <p className="card-text mx-2">
-          <small className="text-muted info">Click to copy emoji</small>
-        </p>
+        <div className="d-flex align-items-center">
+          <small className="text-muted info card-text mx-2">Click to copy emoji</small>
+          <i className="fa fa-cog mx-2" onClick={this.props.onEditItem}></i>
+        </div>
       </div>
     );
   }
