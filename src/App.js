@@ -36,6 +36,16 @@ export default class App extends PureComponent {
     });
   };
 
+  onDeleteItem = currentItem => {
+    this.setState(({ listItems }) => {
+      const newArray = [
+        ...listItems.slice(0, currentItem),
+        ...listItems.slice(currentItem + 1)
+      ];
+      return { listItems: newArray };
+    });
+  };
+
   render() {
     const { listItems, searchValue } = this.state;
     const visibleItems = filterEmoji(listItems, searchValue, 20);
@@ -47,6 +57,7 @@ export default class App extends PureComponent {
           emojiData={visibleItems}
           onAddItem={this.onAddItem}
           onEditItem={this.onEditItem}
+          onDeleteItem={this.onDeleteItem}
           listItems={this.state.listItems}
         />
       </div>

@@ -6,7 +6,8 @@ export default class EmojiResultsRow extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
     symbol: PropTypes.string,
-    onEditItem: PropTypes.func
+    onEditItem: PropTypes.func,
+    onDeleteItem: PropTypes.func
   };
 
   render() {
@@ -24,6 +25,7 @@ export default class EmojiResultsRow extends PureComponent {
         <div className="d-flex align-items-center">
           <small className="text-muted info card-text mx-2">Click to copy emoji</small>
           <i className="fa fa-cog mx-2" onClick={this.props.onEditItem}></i>
+          <i className="far fa-trash-alt mx-2" onClick={this.props.onDeleteItem}></i>
         </div>
       </div>
     );

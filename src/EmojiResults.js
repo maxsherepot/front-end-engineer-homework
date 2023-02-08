@@ -25,6 +25,7 @@ export default class EmojiResults extends PureComponent {
     emojiData: PropTypes.array,
     onAddItem: PropTypes.func,
     onEditItem: PropTypes.func,
+    onDeleteItem: PropTypes.func,
     listItems: PropTypes.array
   };
 
@@ -93,6 +94,27 @@ export default class EmojiResults extends PureComponent {
     });
   };
 
+  onOpenDeleteModal = emojiData => {
+    const currentItem = this.props.listItems.findIndex(
+      item => item.title === emojiData.title && item.symbol === emojiData.symbol && item.keywords === emojiData.keywords
+    );
+    this.setState({
+      isOpenModal: true,
+      modalType: "delete",
+      currentItem: currentItem
+    });
+  };
+
+  onDeleteEmoji = () => {
+    this.props.onDeleteItem(this.state.currentItem);
+    this.setState({
+      isOpenModal: false,
+      title: "",
+      symbol: "",
+      keywords: ""
+    });
+  };
+
   onSubmit = event => {
     event.preventDefault();
     switch (this.state.modalType) {
@@ -100,6 +122,8 @@ export default class EmojiResults extends PureComponent {
         return this.onAddEmoji();
       case "edit":
         return this.onEditEmoji();
+      case "delete":
+        return this.onDeleteEmoji();
       default:
         break;
     };
@@ -123,31 +147,41 @@ export default class EmojiResults extends PureComponent {
                 </div>
                 <div className="modal-body">
                   <form onSubmit={this.onSubmit}>
-                    <TextInput
-                      label='Title:'
-                      name='title'
-                      placeholder='Please enter title'
-                      value={this.state.title}
-                      onChange={value => this.setState({ title: value })}
-                    />
-                    <TextInput
-                      label='Symbol:'
-                      name='symbol'
-                      placeholder='Please enter symbol'
-                      value={this.state.symbol}
-                      onChange={value => this.setState({ symbol: value })}
-                      required
-                    />
-                    <TextArea
-                      label='Keywords:'
-                      name='keywords'
-                      placeholder='Please enter keywords'
-                      value={this.state.keywords}
-                      onChange={value => this.setState({ keywords: value })}
-                    />
+                    {this.state.modalType === "delete" ?
+                      <h6 className="my-3 mb-4">Are you sure you want to delete this emoji?</h6>
+                      :
+                      <>
+                        <TextInput
+                          label='Title:'
+                          name='title'
+                          placeholder='Please enter title'
+                          value={this.state.title}
+                          onChange={value => this.setState({ title: value })}
+                        />
+                        <TextInput
+                          label='Symbol:'
+                          name='symbol'
+                          placeholder='Please enter symbol'
+                          value={this.state.symbol}
+                          onChange={value => this.setState({ symbol: value })}
+                          required
+                        />
+                        <TextArea
+                          label='Keywords:'
+                          name='keywords'
+                          placeholder='Please enter keywords'
+                          value={this.state.keywords}
+                          onChange={value => this.setState({ keywords: value })}
+                        />
+                      </>
+                    }
                     <div className="d-flex justify-content-end mt-3">
                       <button type="button" className="btn btn-secondary m-1" onClick={() => this.setState({ isOpenModal: false })}>Close</button>
-                      <button type="submit" className="btn btn-primary m-1">Save</button>
+                      {this.state.modalType === "delete" ?
+                        <button type="submit" className="btn btn-danger m-1">Delete</button>
+                        :
+                        <button type="submit" className="btn btn-primary m-1">Save</button>
+                      }
                     </div>
                   </form>
                 </div>
@@ -159,6 +193,7 @@ export default class EmojiResults extends PureComponent {
           <EmojiResultRow
             key={emojiData.title}
             onEditItem={() => this.onOpenEditModal(emojiData)}
+            onDeleteItem={() => this.onOpenDeleteModal(emojiData)}
             symbol={emojiData.symbol}
             title={emojiData.title}
           />

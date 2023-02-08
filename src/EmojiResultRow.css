@@ -27,3 +27,7 @@
 .fa-cog:hover {
   color: #0b6efd;
 }
+
+.fa-trash-alt:hover {
+  color: red;
+}
